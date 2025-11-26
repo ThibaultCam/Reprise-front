@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "Reprise-front": {
+    "reprise-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -61,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Reprise-front:build:production"
+              "buildTarget": "reprise-front:build:production"
             },
             "development": {
-              "buildTarget": "Reprise-front:build:development"
+              "buildTarget": "reprise-front:build:development"
             }
           },
           "defaultConfiguration": "development"
