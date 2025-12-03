@@ -2,9 +2,19 @@
   <span class="logo">🎬 Reprise App</span>
   <span class="spacer"></span>
 
-  <a mat-button routerLink="/home">Home</a>
-  <a mat-button routerLink="/films">Films</a>
-  <a mat-button routerLink="/series">Séries</a>
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link routerLink="/home" routerLinkActive #rlaHome="routerLinkActive" [active]="rlaHome.isActive">
+      Home
+    </a>
+
+    <a mat-tab-link routerLink="/films" routerLinkActive #rlaFilms="routerLinkActive" [active]="rlaFilms.isActive">
+      Films
+    </a>
+
+    <a mat-tab-link routerLink="/series" routerLinkActive #rlaSeries="routerLinkActive" [active]="rlaSeries.isActive">
+      Séries
+    </a>
+  </nav>
 
   <button mat-icon-button aria-label="Compte utilisateur">
     <mat-icon>account_circle</mat-icon>

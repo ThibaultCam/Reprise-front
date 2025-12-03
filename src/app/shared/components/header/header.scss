@@ -16,3 +16,13 @@ mat-toolbar {
 .spacer {
   flex: 1 1 auto;
 }
+
+.mat-tab-link {
+  font-weight: 500;
+  color: #444;
+}
+
+.mat-tab-link.mat-tab-label-active {
+  color: #1976d2; // couleur de ton thème
+  font-weight: bold;
+}
