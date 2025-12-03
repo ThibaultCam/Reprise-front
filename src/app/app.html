@@ -1,1 +1,7 @@
+<app-header></app-header>
+<div *ngIf="loading" class="loader">
+    <div class="spinner-container" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+</div>
 <router-outlet></router-outlet>

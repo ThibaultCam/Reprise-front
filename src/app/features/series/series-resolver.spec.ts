@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Auth } from './auth';
+import { SeriesResolver } from './series-resolver';
 
-describe('Auth', () => {
-  let service: Auth;
+describe('SeriesResolver', () => {
+  let service: SeriesResolver;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(Auth);
+    service = TestBed.inject(SeriesResolver);
   });
 
   it('should be created', () => {
