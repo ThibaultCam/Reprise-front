@@ -7,4 +7,5 @@ export interface Film {
   releaseDate: string;
   durationMinutes: number;
   genres: Array<Genre>;
+  imageUrl?: string | null;
 }

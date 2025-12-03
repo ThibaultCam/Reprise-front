@@ -1,1 +1,13 @@
-<p>films works!</p>
+<div class="films-list">
+    <div class="film-item" *ngFor="let film of films">
+        <img class="film-image" [src]="film.imageUrl || 'assets/placeholder.png'" alt="{{ film.name }}" />
+
+        <div class="film-info">
+            <h2>{{ film.name }} <span class="year">({{ film.releaseDate | date:'yyyy' }})</span></h2>
+            <p class="genre" *ngIf="film.genres.length">
+                {{ inlineGenres(film.genres) }}
+            </p>
+            <p class="description">{{ film.description }}</p>
+        </div>
+    </div>
+</div>

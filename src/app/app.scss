@@ -10,3 +10,19 @@
 
   background-color: rgba(255, 255, 255, 0.7);
 }
+
+.page-container {
+  max-width: 1200px;      // largeur maximale
+  margin: 0 auto;         // centrage horizontal
+  padding: 0 24px;        // marges latérales
+}
+
+main {
+  padding-top: 80px;      // si ton header est en position fixed
+}
+
+@media (max-width: 600px) {
+  .page-container {
+    padding: 0 12px;
+  }
+}

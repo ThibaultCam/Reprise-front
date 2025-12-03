@@ -1,0 +1,48 @@
+.films-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+}
+
+.film-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 16px;
+}
+
+.film-image {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.film-info {
+  flex: 1;
+}
+
+.film-info h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.year {
+  font-weight: normal;
+  font-size: 1rem;
+  color: #666;
+}
+
+.genre {
+  font-style: italic;
+  color: #666;
+  margin: 4px 0;
+}
+
+.description {
+  margin-top: 8px;
+}
