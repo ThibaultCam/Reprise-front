@@ -8,4 +8,5 @@ export interface Film {
   durationMinutes: number;
   genres: Array<Genre>;
   imageUrl?: string | null;
+  averageRating: number | null;
 }

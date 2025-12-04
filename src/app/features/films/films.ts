@@ -25,4 +25,8 @@ export class Films implements OnInit {
   inlineGenres(genres: Genre[]): string {
     return genres.map(genre => genre.name).join(', ');
   }
+
+  goToMovie(filmId: string): void {
+    window.location.href = `/film/${filmId}`;
+  }
 }

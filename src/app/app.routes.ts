@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
 import { Films } from './features/films/films';
-import { FilmResolver } from './features/films/films-resolver';
+import { FilmsResolver } from './features/films/films-resolver';
 import { Series } from './features/series/series';
 import { SeriesResolver } from './features/series/series-resolver';
+import { FilmComponent } from './features/film/film';
+import { FilmResolver } from './features/film/film-resolver';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,7 +16,14 @@ export const routes: Routes = [
         path: 'films',
         component: Films,
         resolve: {
-            films: FilmResolver
+            films: FilmsResolver
+        }
+    },
+    {
+        path: 'film/:id',
+        component: FilmComponent,
+        resolve: {
+            film: FilmResolver
         }
     },
     {

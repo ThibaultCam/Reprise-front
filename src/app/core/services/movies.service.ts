@@ -9,9 +9,13 @@ import { Film } from '../models/film';
 export class MoviesService {
   private readonly apiUrl = 'https://localhost:7123';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getFilms(): Observable<Film[]> {
-      return this.http.get<Film[]>(`${this.apiUrl}/film`);
-    }
+    return this.http.get<Film[]>(`${this.apiUrl}/film`);
+  }
+
+  getFilmById(id: string): Observable<Film> {
+    return this.http.get<Film>(`${this.apiUrl}/film/${id}`);
+  }
 }

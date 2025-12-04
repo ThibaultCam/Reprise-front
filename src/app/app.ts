@@ -3,10 +3,11 @@ import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, Naviga
 import { Header } from './shared/components/header/header';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, MatProgressSpinner, CommonModule],
+  imports: [RouterOutlet, Header, MatProgressSpinner, CommonModule, MatTabsModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

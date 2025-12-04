@@ -1,9 +1,11 @@
 <div class="page-container">
-    <app-header></app-header>
+    <app-header [tabPanel]="tabPanel"></app-header>
     <div *ngIf="loading" class="loader">
         <div class="spinner-container" *ngIf="loading">
             <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
         </div>
     </div>
-    <router-outlet></router-outlet>
+    <mat-tab-nav-panel #tabPanel>
+        <router-outlet></router-outlet>
+    </mat-tab-nav-panel>
 </div>

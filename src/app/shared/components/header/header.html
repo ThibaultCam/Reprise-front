@@ -2,7 +2,7 @@
   <span class="logo">🎬 Reprise App</span>
   <span class="spacer"></span>
 
-  <nav mat-tab-nav-bar>
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
     <a mat-tab-link routerLink="/home" routerLinkActive #rlaHome="routerLinkActive" [active]="rlaHome.isActive">
       Home
     </a>
@@ -16,7 +16,4 @@
     </a>
   </nav>
 
-  <button mat-icon-button aria-label="Compte utilisateur">
-    <mat-icon>account_circle</mat-icon>
-  </button>
 </mat-toolbar>

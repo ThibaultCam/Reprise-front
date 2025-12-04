@@ -7,7 +7,7 @@ import { Film } from '../../core/models/film';
 @Injectable({
   providedIn: 'root'
 })
-export class FilmResolver implements Resolve<Film[]> {
+export class FilmsResolver implements Resolve<Film[]> {
   constructor(private moviesService: MoviesService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Film[]> {
