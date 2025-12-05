@@ -1,13 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterOutlet } from '@angular/router';
-import { Header } from './shared/components/header/header';
+import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterOutlet, RouterModule } from '@angular/router';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MaterialModule } from './shared/modules/materialModule';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, MatProgressSpinner, CommonModule, MatTabsModule],
+  imports: [RouterOutlet, MatProgressSpinner, CommonModule,  RouterModule, MaterialModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

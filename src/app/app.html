@@ -1,5 +1,17 @@
 <div class="page-container">
-    <app-header [tabPanel]="tabPanel"></app-header>
+    <mat-toolbar color="primary">
+        <span class="logo">🎬 Reprise App</span>
+        <span class="spacer"></span>
+
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+            <a mat-tab-link routerLink="/home" routerLinkActive #rlaHome="routerLinkActive"
+                [active]="rlaHome.isActive">Home</a>
+            <a mat-tab-link routerLink="/films" routerLinkActive #rlaFilms="routerLinkActive"
+                [active]="rlaFilms.isActive">Films</a>
+            <a mat-tab-link routerLink="/series" routerLinkActive #rlaSeries="routerLinkActive"
+                [active]="rlaSeries.isActive">Séries</a>
+        </nav>
+    </mat-toolbar>
     <div *ngIf="loading" class="loader">
         <div class="spinner-container" *ngIf="loading">
             <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
