@@ -1,12 +1,5 @@
-import { Genre } from "./genre";
+import { Media } from "./media";
 
-export interface Film {
-  id: string;
-  name: string;
-  description?: string | null;
-  releaseDate: string;
+export interface Film extends Media {
   durationMinutes: number;
-  genres: Array<Genre>;
-  imageUrl?: string | null;
-  averageRating: number | null;
 }

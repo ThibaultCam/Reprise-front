@@ -1,0 +1,13 @@
+<div class="medias-list">
+    <div class="media-item" *ngFor="let media of medias">
+        <img class="media-image" [src]="media.imageUrl || 'assets/placeholder.png'" alt="{{ media.name }}" />
+
+        <div class="media-info">
+            <h2><a class="titleButton" (click)="goToMedia(media.id)">{{ media.name }} </a><span class="year">({{ media.releaseDate | date:'yyyy' }})</span></h2>
+            <p class="genre" *ngIf="media.genres.length">
+                {{ inlineGenres(media.genres) }}
+            </p>
+            <p class="description">{{ media.description }}</p>
+        </div>
+    </div>
+</div>

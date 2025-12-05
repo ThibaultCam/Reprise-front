@@ -1,13 +1,1 @@
-<div class="films-list">
-    <div class="film-item" *ngFor="let film of films">
-        <img class="film-image" [src]="film.imageUrl || 'assets/placeholder.png'" alt="{{ film.name }}" />
-
-        <div class="film-info">
-            <h2><a class="titleButton" (click)="goToMovie(film.id)">{{ film.name }} </a><span class="year">({{ film.releaseDate | date:'yyyy' }})</span></h2>
-            <p class="genre" *ngIf="film.genres.length">
-                {{ inlineGenres(film.genres) }}
-            </p>
-            <p class="description">{{ film.description }}</p>
-        </div>
-    </div>
-</div>
+<app-media-tile-list [medias]="films" [mediaType]="type"></app-media-tile-list>

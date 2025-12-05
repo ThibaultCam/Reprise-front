@@ -1,13 +1,6 @@
-import { Genre } from "./genre";
+import { Media } from "./media";
 import { Season } from "./season";
 
-export interface Serie {
-  id: string;
-  name: string;
-  description?: string | null;
-  releaseDate: string;
+export interface Serie extends Media {
   seasons: Array<Season>;
-  genres: Array<Genre>;
-  imageUrl?: string | null;
-  averageRating: number | null;
 }
