@@ -8,10 +8,14 @@ import { Serie } from '../models/serie';
 })
 export class SeriesService {
   private readonly apiUrl = 'https://localhost:7123';
-  
-    constructor(private http: HttpClient) {}
-  
-    getSeries(): Observable<Serie[]> {
-        return this.http.get<Serie[]>(`${this.apiUrl}/serie`);
-      }
+
+  constructor(private http: HttpClient) { }
+
+  getSeries(): Observable<Serie[]> {
+    return this.http.get<Serie[]>(`${this.apiUrl}/serie`);
+  }
+
+  getSerieById(id: string): Observable<Serie> {
+    return this.http.get<Serie>(`${this.apiUrl}/serie/${id}`);
+  }
 }

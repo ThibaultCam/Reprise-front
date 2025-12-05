@@ -1,0 +1,27 @@
+<div class="serie-container">
+  <div class="poster">
+    <img [src]="serie.imageUrl || 'assets/placeholder.png'" alt="{{ serie.name }}" />
+  </div>
+
+  <div class="details">
+    <h2>{{ serie.name }} <span class="year">({{ serie.releaseDate | date:'yyyy' }})</span></h2>
+
+    <mat-chip-listbox aria-label="Genres">
+      <mat-chip *ngFor="let genre of serie.genres">{{ genre.name }}</mat-chip>
+    </mat-chip-listbox>
+
+    <p class="description">{{ serie.description }}</p>
+
+    <div class="rating">
+      <span class="label">Note moyenne :</span>
+      <mat-icon *ngFor="let star of [1,2,3,4,5]">
+        {{ star <= serieAverageRating() ? 'star' : 'star_border' }} </mat-icon>
+    </div>
+
+    <div class="rate-yourself">
+      <span class="label">Votre note :</span>
+      <mat-icon *ngFor="let star of [1,2,3,4,5]" (click)="rateSerie(star)" [class.active]="star <= userRating">
+        {{ star <= userRating ? 'star' : 'star_border' }} </mat-icon>
+    </div>
+  </div>
+</div>

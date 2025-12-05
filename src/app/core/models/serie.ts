@@ -8,4 +8,6 @@ export interface Serie {
   releaseDate: string;
   seasons: Array<Season>;
   genres: Array<Genre>;
+  imageUrl?: string | null;
+  averageRating: number | null;
 }

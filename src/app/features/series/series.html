@@ -1,1 +1,13 @@
-<p>series works!</p>
+<div class="series-list">
+    <div class="serie-item" *ngFor="let serie of series">
+        <img class="serie-image" [src]="serie.imageUrl || 'assets/placeholder.png'" alt="{{ serie.name }}" />
+
+        <div class="serie-info">
+            <h2><a class="titleButton" (click)="goToSerie(serie.id)">{{ serie.name }} </a><span class="year">({{ serie.releaseDate | date:'yyyy' }})</span></h2>
+            <p class="genre" *ngIf="serie.genres.length">
+                {{ inlineGenres(serie.genres) }}
+            </p>
+            <p class="description">{{ serie.description }}</p>
+        </div>
+    </div>
+</div>

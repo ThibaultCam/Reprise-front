@@ -5,6 +5,8 @@ import { Series } from './features/series/series';
 import { SeriesResolver } from './features/series/series-resolver';
 import { FilmComponent } from './features/film/film';
 import { FilmResolver } from './features/film/film-resolver';
+import { SerieResolver } from './features/serie/serie-resolver';
+import { SerieComponent } from './features/serie/serie';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -24,6 +26,13 @@ export const routes: Routes = [
         component: FilmComponent,
         resolve: {
             film: FilmResolver
+        }
+    },
+    {
+        path: 'serie/:id',
+        component: SerieComponent,
+        resolve: {
+            serie: SerieResolver
         }
     },
     {

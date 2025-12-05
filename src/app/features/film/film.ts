@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from '../../shared/modules/materialModule';
 import { Film } from '../../core/models/film';
 import { ActivatedRoute } from '@angular/router';
