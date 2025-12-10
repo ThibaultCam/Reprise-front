@@ -8,4 +8,5 @@ export interface Media {
   genres: Array<Genre>;
   imageUrl?: string | null;
   averageRating: number | null;
+  UserRate: number | null;
 }
