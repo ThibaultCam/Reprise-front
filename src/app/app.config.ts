@@ -6,6 +6,7 @@ import { BrowserCacheLocation, InteractionType, IPublicClientApplication, LogLev
 import { MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalBroadcastService, MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalService } from '@azure/msal-angular';
 import { environment } from './shared/env';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import { FilmInterceptor } from './core/interceptors/films.interceptor';
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -32,10 +33,9 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
   //have this set if more microservice used or requires different scope for different controllers
   protectedResourceMap.set(
-    `${environment.adConfig.apiEndpointUrl}/film`,
+    `${environment.adConfig.apiEndpointUrl}/UserDataFilm`,
     environment.adConfig.scopeUrls
   );
-
   return {
     interactionType: InteractionType.Redirect,
     protectedResourceMap,
@@ -65,6 +65,11 @@ export const appConfig: ApplicationConfig = {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
       multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: FilmInterceptor,
+      multi: true
     },
     {
       provide: MSAL_INSTANCE,

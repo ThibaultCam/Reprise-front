@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../../shared/modules/materialModule';
 import { Film } from '../../core/models/film';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { UserDataFilmService } from '../../core/services/userDataFilm.service';
+import { ClaimService } from '../../core/services/claim.service';
 
 @Component({
   selector: 'app-film',
@@ -12,9 +14,22 @@ import { CommonModule } from '@angular/common';
 })
 export class FilmComponent implements OnInit {
   film!: Film;
-  userRating = 5;
+  isConnected$: any;
 
-  constructor(private route: ActivatedRoute) { }
+  get userRating(): number {
+    return this.film.userRate ?? 0;
+  }
+
+  set userRating(value: number) {
+    this.film.userRate = value;
+  }
+
+  constructor(private route: ActivatedRoute,
+    private userDataFilmService: UserDataFilmService,
+    private cdr: ChangeDetectorRef,
+    private claimService: ClaimService) { 
+      this.isConnected$ = this.claimService.connected$;
+    }
 
   ngOnInit(): void {
     this.film = this.route.snapshot.data['film'];
@@ -22,10 +37,13 @@ export class FilmComponent implements OnInit {
   }
 
   rateFilm(star: number) {
-    this.userRating = star;
+    this.userDataFilmService.updateFilmRateObs(star, this.film.id).subscribe(() => {
+      this.userRating = star;
+      this.cdr.detectChanges();
+    });
   }
 
-  filmAverageRating() : number {
+  filmAverageRating(): number {
     return this.film.averageRating ?? 0;
   }
 }

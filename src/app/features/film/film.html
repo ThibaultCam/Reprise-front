@@ -18,10 +18,10 @@
         {{ star <= filmAverageRating() ? 'star' : 'star_border' }} </mat-icon>
     </div>
 
-    <div class="rate-yourself">
+    <ng-container class="rate-yourself" *ngIf="isConnected$ | async">
       <span class="label">Votre note :</span>
       <mat-icon *ngFor="let star of [1,2,3,4,5]" (click)="rateFilm(star)" [class.active]="star <= userRating">
         {{ star <= userRating ? 'star' : 'star_border' }} </mat-icon>
-    </div>
+    </ng-container>
   </div>
 </div>
