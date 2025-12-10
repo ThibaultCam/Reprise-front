@@ -1,6 +1,7 @@
 <p>home-page works!</p>
-weather = {{ weather.temperatureC }} °C - {{ weather.summary }}
-<button (click)="loadWeather()">Rafraîchir la météo</button>
-
-vocab = {{ vocab }}
-<button (click)="loadVocab()">Rafraîchir le vocab</button>
+<h1>Home (Public)</h1>
+<button mat-menu-item class="btn btn-primary" (click)="loginPopup()">Login using Popup</button>
+<button (click)="logout()">Se déconnecter</button>
+<button (click)="callApi()">Appeler API publique</button>
+<button (click)="getCaca()">getCaca</button>
+<pre>{{ apiResult }}</pre>

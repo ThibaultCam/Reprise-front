@@ -7,9 +7,12 @@ import { FilmComponent } from './features/film/film';
 import { FilmResolver } from './features/film/film-resolver';
 import { SerieResolver } from './features/serie/serie-resolver';
 import { SerieComponent } from './features/serie/serie';
+import { MsalGuard } from '@azure/msal-angular';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'secure', canActivate: [MsalGuard], loadComponent: () => import('./features/auth/secure/secure').then(m => m.SecureComponent) },
+    { path: 'auth/callback', loadComponent: () => import('./features/auth/auth-callback/auth-callback').then(m => m.AuthCallbackComponent) },
     {
         path: '',
         loadChildren: () => import('./features/home/home-module').then(m => m.HomeModule)

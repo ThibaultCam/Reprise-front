@@ -11,6 +11,9 @@
             <a mat-tab-link routerLink="/series" routerLinkActive #rlaSeries="routerLinkActive"
                 [active]="rlaSeries.isActive">Séries</a>
         </nav>
+        <button mat-icon-button aria-label="Compte utilisateur">
+            <mat-icon>account_circle</mat-icon>
+        </button>
     </mat-toolbar>
     <div *ngIf="loading" class="loader">
         <div class="spinner-container" *ngIf="loading">
