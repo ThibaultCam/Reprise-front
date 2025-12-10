@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -6,10 +6,6 @@ import { BrowserCacheLocation, InteractionType, IPublicClientApplication, LogLev
 import { MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalBroadcastService, MsalGuard, MsalGuardConfiguration, MsalInterceptor, MsalInterceptorConfiguration, MsalService } from '@azure/msal-angular';
 import { environment } from './shared/env';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
-
-export function loggerCallback(logLevel: LogLevel, message: string) {
-  console.log(message);
-}
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -25,7 +21,6 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     },
     system: {
       loggerOptions: {
-        loggerCallback,
         logLevel: LogLevel.Info,
         piiLoggingEnabled: false,
       },
@@ -38,11 +33,6 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   //have this set if more microservice used or requires different scope for different controllers
   protectedResourceMap.set(
     `${environment.adConfig.apiEndpointUrl}/film`,
-    environment.adConfig.scopeUrls
-  );
-
-  protectedResourceMap.set(
-    `${environment.adConfig.apiEndpointUrl}/reviews`,
     environment.adConfig.scopeUrls
   );
 
@@ -62,10 +52,14 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   };
 }
 
+export function MsalInitializerFactory(msalService: MsalService): () => Promise<void> {
+  return () => msalService.instance.initialize();
+}
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),    
+    provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
     {
       provide: HTTP_INTERCEPTORS,
@@ -83,6 +77,12 @@ export const appConfig: ApplicationConfig = {
     {
       provide: MSAL_INTERCEPTOR_CONFIG,
       useFactory: MSALInterceptorConfigFactory,
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: MsalInitializerFactory,
+      deps: [MsalService],
+      multi: true,
     },
     MsalService,
     MsalGuard,

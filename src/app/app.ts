@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterOutlet, RouterModule } from '@angular/router';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
@@ -14,11 +14,13 @@ import { AuthenticationResult, EventMessage, EventType, InteractionStatus, Popup
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App implements OnInit {
+export class App implements OnInit, AfterViewInit {
   private msalGuardConfig = inject<MsalGuardConfiguration>(MSAL_GUARD_CONFIG);
   protected readonly title = signal('reprise-front');
+
   loading = false;
   isConnected$: any;
+  email$: any;
 
   isIframe = false;
   loginDisplay = false;
@@ -26,10 +28,11 @@ export class App implements OnInit {
   claimsFromApi: any;
   apiResult = '';
 
-  constructor(private router: Router, private msalService: MsalService,
+  constructor(private router: Router,
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService,
-    private claimService: ClaimService) {
+    private claimService: ClaimService,
+    private cdr: ChangeDetectorRef) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         this.loading = true;
@@ -37,11 +40,28 @@ export class App implements OnInit {
       if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
         this.loading = false;
       }
-
       this.isConnected$ = this.claimService.connected$;
-      // this.initMsal();
+      this.email$ = this.claimService.email$;
+
     });
   }
+
+  ngAfterViewInit() {
+    // Forcer Angular à refaire un cycle propre après que tabPanel est défini
+    this.cdr.detectChanges();
+  }
+
+  isDefaultActive(tab: 'home' | 'films' | 'series'): boolean {
+    const url = this.router.url;
+    if (url.startsWith('/film/')) {
+      return tab === 'films';
+    }
+    if (url.startsWith('/serie/')) {
+      return tab === 'series';
+    }
+    return false;
+  }
+
 
   ngOnInit(): void {
     this.authService.handleRedirectObservable().subscribe();
@@ -79,53 +99,48 @@ export class App implements OnInit {
   }
 
   setLoginDisplay() {
-      this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
-    }
-  
-    checkAndSetActiveAccount() {
-      let activeAccount = this.authService.instance.getActiveAccount();
-  
-      if (
-        !activeAccount &&
-        this.authService.instance.getAllAccounts().length > 0
-      ) {
-        let accounts = this.authService.instance.getAllAccounts();
-        this.authService.instance.setActiveAccount(accounts[0]);
-      }
-    }
-  
-    async initMsal() {
-      await this.authService.instance.initialize();
-    }
-  
-    loginPopup() {
-      if (this.msalGuardConfig.authRequest) {
-        this.authService
-          .loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
-          .subscribe((response: AuthenticationResult) => {
-            this.authService.instance.setActiveAccount(response.account);
-          });
-      } else {
-        this.authService
-          .loginPopup()
-          .subscribe((response: AuthenticationResult) => {
-            this.authService.instance.setActiveAccount(response.account);
-          });
-      }
-    }
-  
-    logout(popup?: boolean) {
-      if (popup) {
-        this.authService.logoutPopup({
-          mainWindowRedirectUri: '/',
-        });
-      } else {
-        this.authService.logoutRedirect();
-      }
-    }
+    this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
+  }
 
-  getUserEmail() {
-    const account = this.msalService.instance.getActiveAccount();
-    return account ? account.username : 'Guest';
+  checkAndSetActiveAccount() {
+    let activeAccount = this.authService.instance.getActiveAccount();
+
+    if (
+      !activeAccount &&
+      this.authService.instance.getAllAccounts().length > 0
+    ) {
+      let accounts = this.authService.instance.getAllAccounts();
+      this.authService.instance.setActiveAccount(accounts[0]);
+    }
+  }
+
+  async initMsal() {
+    await this.authService.instance.initialize();
+  }
+
+  loginPopup() {
+    if (this.msalGuardConfig.authRequest) {
+      this.authService
+        .loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
+        .subscribe((response: AuthenticationResult) => {
+          this.authService.instance.setActiveAccount(response.account);
+        });
+    } else {
+      this.authService
+        .loginPopup()
+        .subscribe((response: AuthenticationResult) => {
+          this.authService.instance.setActiveAccount(response.account);
+        });
+    }
+  }
+
+  logout(popup?: boolean) {
+    if (popup) {
+      this.authService.logoutPopup({
+        mainWindowRedirectUri: '/',
+      });
+    } else {
+      this.authService.logoutRedirect();
+    }
   }
 }

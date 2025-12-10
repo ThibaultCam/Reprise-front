@@ -7,9 +7,9 @@
             <a mat-tab-link routerLink="/home" routerLinkActive #rlaHome="routerLinkActive"
                 [active]="rlaHome.isActive">Home</a>
             <a mat-tab-link routerLink="/films" routerLinkActive #rlaFilms="routerLinkActive"
-                [active]="rlaFilms.isActive">Films</a>
+                [active]="rlaFilms.isActive  || isDefaultActive('films')">Films</a>
             <a mat-tab-link routerLink="/series" routerLinkActive #rlaSeries="routerLinkActive"
-                [active]="rlaSeries.isActive">Séries</a>
+                [active]="rlaSeries.isActive || isDefaultActive('series')">Séries</a>
         </nav>
         <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="Compte utilisateur">
             <mat-icon>account_circle</mat-icon>
@@ -18,7 +18,7 @@
     <mat-menu #userMenu="matMenu">
         <ng-container *ngIf="isConnected$ | async; else notConnected">
             <button mat-menu-item disabled>
-                {{ getUserEmail() }}
+                {{ email$ | async }}
             </button>
             <button mat-menu-item (click)="logout()">Se déconnecter</button>
         </ng-container>
