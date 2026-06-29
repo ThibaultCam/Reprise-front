@@ -13,7 +13,7 @@
     <p class="description">{{ film.description }}</p>
 
     <div class="rating">
-      <span class="label">Note moyenne :</span>
+      <span class="label">Note moyenne des utilisateurs :</span>
       <mat-icon *ngFor="let star of [1,2,3,4,5]">
         {{ star <= filmAverageRating() ? 'star' : 'star_border' }} </mat-icon>
     </div>
