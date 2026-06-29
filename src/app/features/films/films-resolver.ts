@@ -12,5 +12,6 @@ export class FilmsResolver implements Resolve<Film[]> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Film[]> {
     return this.moviesService.getFilms();
+    //console osef
   }
 }
