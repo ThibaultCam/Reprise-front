@@ -22,4 +22,8 @@ export class WeatherService {
   getMot(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/Vocab/1`);
   }
+
+  updateMot(): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/Vocab/1`, {});
+  }
 }
